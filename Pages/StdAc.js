@@ -1,7 +1,14 @@
-import React,{useRef,useEffect} from "react";
-import {Text,View,TextInput,ImageBackground,StyleSheet,Animated} from "react-native";
+import React,{useRef,useEffect,useState} from "react";
+import {Text,View,TextInput,ImageBackground,StyleSheet,Animated,useColorScheme} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaView } from "react-native-safe-area-context";
+import { Amplify } from "aws-amplify";
+import { signIn, signOut } from "aws-amplify/auth";
+import awsconfig from "../src/aws-exports";
+
+Amplify.configure(awsconfig);
+
+
 const style=StyleSheet.create(
   {
     container:
@@ -98,8 +105,12 @@ const style=StyleSheet.create(
     }
   }
 );
-export default function StdAc()
+export default function StdAc({navigation})
 {
+  const colourscheme=useColorScheme();
+  const [email,setEmail]=useState('');
+  const [password,setPassword]=useState('');
+  const [msg,setMsg]=useState('');
   const mov=useRef(new Animated.Value(-400)).current;
     const move=useRef(new Animated.Value(400)).current;
       useEffect(()=>
@@ -121,6 +132,37 @@ export default function StdAc()
         ]
         ).start();
       },[]);
+
+async function login() {
+  try {
+    const result =await signIn({
+      username:email.trim(),
+      password:password.trim()});
+    navigation.navigate("Home",{email});
+    console.log("✅ Success:", result);
+  } catch (err) {
+    setMsg(err.message);
+  }
+
+
+}
+function signout()
+{
+   try {
+    signOut()
+    .then(()=>console.log("Successfully signout"))
+    .catch(err=>console.log(err));
+
+  } catch (err) {
+    console.log("❌ RAW ERROR:", err);
+    
+  }
+
+}
+
+
+
+
   return(
     <SafeAreaView style={{flex:1}}>
 
@@ -133,17 +175,24 @@ export default function StdAc()
           </Animated.View>
        <ImageBackground style={style.h}>
        <Animated.View style={{transform:[{translateY:move}]}}>
-      <TextInput style={style.id} placeholder="Enter your user id :"/>
+      <TextInput style={style.id} value={email} onChangeText={setEmail}
+      placeholderTextColor={colourscheme === 'light' ? '#888' : '#ccc'}      
+      placeholder="Enter your user id :"/>
        </Animated.View>
            <Animated.View style={{transform:[{translateY:move}]}}>
-      <TextInput style={style.pass} placeholder="Enter your password :"/>
+      <TextInput style={style.pass} value={password} onChangeText={setPassword} secureTextEntry={true}
+      placeholderTextColor={colourscheme === 'light' ? '#888' : '#ccc'}
+      placeholder="Enter your password :"/>
            </Animated.View>
            <Animated.View style={{transform:[{translateY:move}]}}>
+           <View style={{justifyContent:'center',alignItems:'center',top:'20%'}}>
+           {msg && <Text style={{color:"red",fontWeight:'800'}}>{msg}</Text>}
+           </View>
       <View style={style.bt}>
-        <Text style={style.btxt}>Login</Text>
+        <Text style={style.btxt} onPress={login}>Login</Text>
       </View>
            </Animated.View>
-      <Text style={style.forgot}>Forgot password?</Text>
+      <Text style={style.forgot} onPress={signout}>Forgot password?</Text>
        </ImageBackground>
       </ImageBackground>
     </SafeAreaView>

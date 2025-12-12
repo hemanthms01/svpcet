@@ -1,5 +1,5 @@
 import React,{useRef,useEffect} from 'react';
-import {Text,View,StyleSheet,ImageBackground, TextInput,Button,Animated} from 'react-native';
+import {Text,View,StyleSheet,ImageBackground, TextInput,Button,Animated,useColorScheme} from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
  import { SafeAreaView } from 'react-native-safe-area-context';
 const style=StyleSheet.create(
@@ -94,8 +94,9 @@ const style=StyleSheet.create(
     }
   }
 );
-export default function StaffAc()
+export default function StaffAc({navigation})
 {
+  const colourscheme=useColorScheme();
   const mov=useRef(new Animated.Value(-400)).current;
   const move=useRef(new Animated.Value(400)).current;
     useEffect(()=>
@@ -129,14 +130,18 @@ export default function StaffAc()
         </Animated.View>
      <ImageBackground style={style.h}>
      <Animated.View style={{transform:[{translateY:move}]}}>
-    <TextInput style={style.id} placeholder="Enter your user id :"/>
+    <TextInput style={style.id} 
+    placeholderTextColor={colourscheme === 'light' ? '#888' : '#ccc'}
+    placeholder="Enter your user id :"/>
      </Animated.View>
          <Animated.View style={{transform:[{translateY:move}]}}>
-    <TextInput style={style.pass} placeholder="Enter your password :"/>
+    <TextInput style={style.pass} 
+    placeholderTextColor={colourscheme === 'light' ? '#888' : '#ccc'}
+    placeholder="Enter your password :"/>
          </Animated.View>
          <Animated.View style={{transform:[{translateY:move}]}}>
     <View style={style.bt}>
-      <Text style={style.btxt}>Login</Text>
+      <Text style={style.btxt} onPress={navigation.navigate('OtpScreen')}>Login</Text>
     </View>
          </Animated.View>
     <Text style={style.forgot}>Forgot password?</Text>
