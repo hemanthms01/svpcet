@@ -1,14 +1,13 @@
 import React, { useState, useRef } from "react";
 import { View, Text, StyleSheet, TouchableOpacity, ToastAndroid } from "react-native";
 import OTPTextInput from "react-native-otp-textinput";
-import { confirmSignUp, signIn } from "@aws-amplify/auth";
 
 export default function OtpScreen({navigation,route}) {
   const { email, password } = route.params;
   const otpInput = useRef(null);
   const [otp, setOtp] = useState("");
 
-  const handleVerify = async () => {
+  /* const handleVerify  = async () => {
     if (!otp || otp.length !== 6) {
       alert("Please enter the OTP");
       return;
@@ -28,7 +27,7 @@ export default function OtpScreen({navigation,route}) {
       alert("OTP Verification failed");
     }
   };
-
+ */
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Enter OTP</Text>
@@ -42,7 +41,8 @@ export default function OtpScreen({navigation,route}) {
         textInputStyle={styles.box}
       />
 
-      <TouchableOpacity style={styles.button} onPress={handleVerify}>
+      <TouchableOpacity style={styles.button} //onPress={handleVerify}
+      >
         <Text style={styles.buttonText}>Verify</Text>
       </TouchableOpacity>
     </View>

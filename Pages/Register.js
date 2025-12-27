@@ -13,7 +13,6 @@ import {
 } from 'react-native';
 import { SafeAreaView } from "react-native-safe-area-context";
 import axios from "axios";
-import { signUp } from "aws-amplify/auth";
 
 const style = StyleSheet.create({
   container: {
@@ -74,8 +73,8 @@ export default function Register({ navigation }) {
   const colourscheme = useColorScheme();
 
   function handleRegister() {
-    try {
-      signUp({   
+   /* try {
+       signUp({   
         username: email.trim(),
         password: password,
         attributes: { email: email.trim() }
@@ -84,12 +83,12 @@ export default function Register({ navigation }) {
       }).catch(error => {
         console.log('Error signing up with Cognito:', error);
         ToastAndroid.show('Error: ' + error.message, ToastAndroid.LONG);
-      });
+      }); 
     } catch (error) {
       console.log("Exception:", error);
-    }
+    }  */
 
-    axios.post('http://172.21.140.71:5000/users', {
+    axios.post('http://10.215.102.71:5000/users', {
       name,
       rollNo,  
       mob,

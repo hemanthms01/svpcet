@@ -62,5 +62,14 @@ amplifytools.xcconfig
 # Amplify generated config
 aws-exports.js
 
-# Local server env
-server/.env
+# Environment
+.env
+
+
+# Android build junk
+android/gradle/wrapper/dists/
+android/.gradle/
+android/app/build/
+android/build/
+android/app/*.keystore
+android/app/*.jks

@@ -59,7 +59,7 @@ const style = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderRadius: 20,
-    marginTop: "-5%",
+    marginTop: "5%",
     position:"sticky",
   },
   optionview:
@@ -84,7 +84,7 @@ export default function Attendance({navigation}) {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.get("http://172.21.140.71:5000/users");
+        const response = await axios.get("http://10.215.102.71:5000/users");
         console.log("Students:", response.data.users);
         setData(response.data.users);
       } catch (error) {
@@ -111,7 +111,7 @@ export default function Attendance({navigation}) {
   }
   function present(rollNo,date,subject,status) {
     try {
-      axios.post(`http://172.21.140.71:5000/users/${rollNo}`, {
+      axios.post(`http://10.215.102.71:5000/users/${rollNo}`, {
         rollNo,
         date,
         subject,
@@ -126,7 +126,7 @@ export default function Attendance({navigation}) {
 
   function absent(rollNo,date,subject,status) {
     try {
-      axios.post(`http://172.21.140.71:5000/users/${rollNo}`, {
+      axios.post(`http://10.215.102.71:5000/users/${rollNo}`, {
        rollNo,
        date,
        subject,
@@ -153,7 +153,7 @@ export default function Attendance({navigation}) {
         {cal && (
           <View style={{transform:[{translateY:'60%'}]}}>
             <Calendar
-              style={{ marginTop: "-15%",transform:[{translateY:'-25%'}]}}
+              style={{ marginTop: "-15%",transform:[{translateY:'-5%'}]}}
               onDayPress={(day) => setDate(day.dateString)}
               markedDates={{
                 [date]: { selected: true, selectedColor: "green" },

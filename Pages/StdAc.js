@@ -2,11 +2,7 @@ import React,{useRef,useEffect,useState} from "react";
 import {Text,View,TextInput,ImageBackground,StyleSheet,Animated,useColorScheme} from "react-native";
 import Icon from 'react-native-vector-icons/MaterialIcons';
 import { SafeAreaView } from "react-native-safe-area-context";
-import { Amplify } from "aws-amplify";
-import { signIn, signOut } from "aws-amplify/auth";
-import awsconfig from "../src/aws-exports";
 
-Amplify.configure(awsconfig);
 
 
 const style=StyleSheet.create(
@@ -133,7 +129,7 @@ export default function StdAc({navigation})
         ).start();
       },[]);
 
-async function login() {
+/* async function login() {
   try {
     const result =await signIn({
       username:email.trim(),
@@ -158,7 +154,7 @@ function signout()
     
   }
 
-}
+} */
 
 
 
@@ -189,10 +185,12 @@ function signout()
            {msg && <Text style={{color:"red",fontWeight:'800'}}>{msg}</Text>}
            </View>
       <View style={style.bt}>
-        <Text style={style.btxt} onPress={login}>Login</Text>
+        <Text style={style.btxt} //onPress={login}
+        >Login</Text>
       </View>
            </Animated.View>
-      <Text style={style.forgot} onPress={signout}>Forgot password?</Text>
+      <Text style={style.forgot} //onPress={signout}
+      >Forgot password?</Text>
        </ImageBackground>
       </ImageBackground>
     </SafeAreaView>

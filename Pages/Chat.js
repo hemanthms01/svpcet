@@ -12,7 +12,7 @@ export default function ChatScreen() {
     const updatedChat = chat.concat({ from: "user", text: message });
     setChat(updatedChat);
 
-    const res = await axios.post("http://172.21.140.71:5000/api/chat", {
+    const res = await axios.post("http://10.215.102.71:5000/api/chat", {
       message
     });
 

@@ -52,7 +52,7 @@ export default function AttendanceView({route})
    const fetch=async ()=>
    {
     try {
-    const response= await axios.get(`http://172.21.140.71:5000/student/${rollNo}`);
+    const response= await axios.get(`http://10.215.102.71:5000/student/${rollNo}`);
     setData(response.data.student);
    // console.log("API RESPONSE:", JSON.stringify(response.data, null, 2));
 
